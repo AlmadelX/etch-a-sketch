@@ -17,6 +17,11 @@ function setupGrid() {
   return gridDimensions;
 }
 
+// Makes an element touched
+function onHover(e) {
+  this.classList.add("touched");
+}
+
 // Sets up size x size grid
 function setupCells(gridDimensions, size) {
   const BORDER_DELTA = 2;
@@ -27,6 +32,7 @@ function setupCells(gridDimensions, size) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
     cell.style.width = `${cellDimensions}px`;
+    cell.addEventListener("mouseover", onHover);
     grid.appendChild(cell);
   }
 }
