@@ -1,34 +1,38 @@
+// Default grid size
+let gridSize = 16;
+let gridDimensions;
+
 // Sets up an empty grid, fitting the screen. Returns the greed size in px
 function setupGrid() {
   // Deltas represent numbers that should be subtracted from the available size to get the size of fitting content
   const WIDTH_DELTA = 32;
-  const HEIGHT_DELTA = 103;
+  const HEIGHT_DELTA = 171;
 
   // Setup grid dimensions
   const body = document.querySelector("body");
-  const gridDimensions = Math.min(body.offsetWidth - WIDTH_DELTA, body.offsetHeight - HEIGHT_DELTA);
+  gridDimensions = Math.min(body.offsetWidth - WIDTH_DELTA, body.offsetHeight - HEIGHT_DELTA);
   
   const grid = document.querySelector(".grid");
   grid.style.width = `${gridDimensions}px`;
-
-  // Remove children
-  grid.textContent = "";
-
-  return gridDimensions;
 }
 
 // Makes an element touched
-function onHover(e) {
+function onHover() {
   this.classList.add("touched");
 }
 
 // Sets up size x size grid
-function setupCells(gridDimensions, size) {
+function setupCells() {
   const BORDER_DELTA = 2;
 
+  // Remove children
   const grid = document.querySelector(".grid");
-  const cellDimensions = (gridDimensions - BORDER_DELTA) / size;
-  for (let i = 0; i < size * size; ++i) {
+  grid.textContent = "";
+
+  // Calculate cell width 
+  const cellDimensions = (gridDimensions - BORDER_DELTA) / gridSize;
+
+  for (let i = 0; i < gridSize * gridSize; ++i) {
     const cell = document.createElement("div");
     cell.classList.add("cell");
     cell.style.width = `${cellDimensions}px`;
@@ -37,7 +41,24 @@ function setupCells(gridDimensions, size) {
   }
 }
 
-const DEFAULT_SIZE = 16;
+function getSize() {
+  const LIMIT = 100;
 
-const gridDimensions = setupGrid();
-setupCells(gridDimensions, DEFAULT_SIZE);
+  const size = parseInt(prompt("Enter a new size:"));
+  if (isNaN(size) || size < 1 || size > LIMIT) {
+    alert("Enter a number between 1 and 100");
+    return;
+  }
+  
+  gridSize = size;
+}
+
+setupGrid();
+setupCells();
+
+const button = document.querySelector(".change-size");
+button.addEventListener("click", () => {
+  getSize();
+  console.log(gridSize);
+  setupCells();
+});
