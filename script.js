@@ -39,12 +39,5 @@ function setupCells(gridDimensions, size) {
 
 const DEFAULT_SIZE = 16;
 
-// Entry point
 const gridDimensions = setupGrid();
 setupCells(gridDimensions, DEFAULT_SIZE);
-
-// Runs setup on every resize
-window.addEventListener("resize", e => {
-  const gridDimensions = setupGrid();
-  setupCells(gridDimensions, DEFAULT_SIZE);
-});
