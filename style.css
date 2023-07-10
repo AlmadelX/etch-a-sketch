@@ -35,10 +35,6 @@ body, h1 {
   flex-wrap: wrap;
 }
 
-.touched {
-  background-color: black;
-}
-
 .change-size {
   display: block;
   margin: 0 auto 16px;

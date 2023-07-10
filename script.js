@@ -1,6 +1,7 @@
 // Default grid size
 let gridSize = 16;
 let gridDimensions;
+let currentColor = 256;
 
 // Sets up an empty grid, fitting the screen. Returns the greed size in px
 function setupGrid() {
@@ -16,9 +17,17 @@ function setupGrid() {
   grid.style.width = `${gridDimensions}px`;
 }
 
-// Makes an element touched
+// Colors the cell
 function onHover() {
-  this.classList.add("touched");
+  const RGB_MAX = 256;
+  const STEP = 10;
+
+  // Update the color
+  currentColor = Math.min(RGB_MAX, Math.floor(currentColor - RGB_MAX / STEP));
+  const colorStr = `rgb(${currentColor}, ${currentColor}, ${currentColor})`;
+
+  // Change it
+  this.style.backgroundColor = colorStr;
 }
 
 // Sets up size x size grid
